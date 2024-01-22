@@ -28,7 +28,7 @@ var longestPalindrome = function (words) {
         obj2[element] = obj1[element] - 1;
       }
     } else {
-      obj2[element] = Math.min(obj1[element],(obj1[element[1] + element[0]] ?? 0));
+      obj2[element] = Math.min(obj1[element],(obj1[element.split('').reverse().join("")] ?? 0));
     }
   });
   Object.keys(obj2).forEach((data, i) => {

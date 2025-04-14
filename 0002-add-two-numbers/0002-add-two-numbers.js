@@ -11,58 +11,56 @@
  * @return {ListNode}
  */
 var addTwoNumbers = function(l1, l2) {
-    let ans = new ListNode();
-    let temp = ans;
+       let ans = new ListNode();
+    let head = ans;
     let carry = 0;
-    while(l1 && l2) {
-        let sum = l1.val+l2.val+carry;
-        let val = 0;
-        if(sum >= 10) {
-            carry =  1, 
-            val = sum - 10;
-        }else { 
-            carry = 0;
-            val = sum;
-        }
-        
-        temp.next = new ListNode(val);
-        temp = temp.next
-        l1 = l1.next;
-        l2 = l2.next;
-    }
-    
-    while(l1) {
-        let sum = l1.val+carry;
-        let val = 0;
-        if(sum >= 10) {
-            carry =  1, 
-            val = sum - 10;
-        }else { 
-            carry = 0;
-            val = sum;
-        }
-        temp.next = new ListNode(val)
-        l1 = l1.next;
-        temp = temp.next
-    }
-    while(l2) {
-        let sum = l2.val+carry;
-        let val = 0;
-        if(sum >= 10) {
-            carry =  1, 
-            val = sum - 10;
-        }else { 
-            carry = 0;
-            val = sum;
-        }
-        temp.next = new ListNode(val)
-        l2 = l2.next;
-        temp = temp.next
-    }
-    console.log(carry)
-    if(carry > 0) {
-        temp.next = new ListNode(carry)
-        temp = temp.next
-    }
-    return ans.next;
+  while(l1 && l2) {
+    const val1 = l1 && l1.val?l1.val:0;
+    const val2 = l2 && l2.val?l2.val:0;
+
+    let val = val1  + val2 + carry;
+    if(val>=10) {
+        val = (10 - val)>0? 10 - val : -(10 - val);
+        carry = 1;
+    } else carry = 0;
+
+    l1 = l1.next;
+    l2 = l2.next;
+    head.next = new ListNode(val);
+    head = head.next;
+  }  
+  
+while(l1) {
+    const val1 = l1 && l1.val?l1.val:0;
+    const val2 = 0;
+
+    let val = val1  + val2 + carry;
+    if(val>=10) {
+       val = (10 - val)>0? 10 - val : -(10 - val);
+        carry = 1;
+    } else carry = 0;
+
+    l1 = l1.next;
+    head.next = new ListNode(val);
+    head = head.next;
+} 
+  
+while(l2) {
+    const val1 = 0;
+    const val2 = l2 && l2.val?l2.val:0;
+
+    let val = val1  + val2 + carry;
+    if(val>=10) {
+        val = (10 - val)>0? 10 - val : -(10 - val);
+        carry = 1;
+    } else carry = 0;
+
+    l2 = l2.next;
+    head.next = new ListNode(val);
+    head = head.next;
+} 
+  if(carry > 0) {
+    head.next = new ListNode(carry);
+  }
+  return ans.next;
 };
